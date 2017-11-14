@@ -9,44 +9,19 @@ language: r
 
 matrix:
   include:
-    # build QGIS OLD_LTR on Linux
     - os: linux
-      dist: trusty
-      sudo: required
-      latex: false
-      jdk: oraclejdk9
-      env: 
-        - R_CODECOV=true
-        - OLD_LTR_Linux=true
-        
-    # build QGIS LTR on Linux
-    - os: linux
-      dist: trusty
-      sudo: required
-      latex: false
-      jdk: oraclejdk9
-      env: LTR_Linux=true
-      
-    # build QGIS NIGHTLY on Linux
-    - os: linux
-      dist: trusty
-      sudo: required
-      latex: false
-      jdk: oraclejdk9
+      services: docker
       env: NIGHTLY_Linux=true
-      
-    ### build QGIS LTR on macOS
-    - os: osx
-      osx_image: xcode8.3
-      latex: false
+      dist: xenial
       sudo: required
-      env: LTR_mac=true
-    ### build QGIS DEV on macOS
-    - os: osx
-      osx_image: xcode8.3
-      latex: false
-      sudo: required
-      env: DEV_mac=true
+      cache:
+        apt: true
+        pip: true
+        directories:
+          - $HOME/.ccache
+        timeout: 1000
+      compiler: clang
+      python: "3.5"
 
 warnings_are_errors: false
 
