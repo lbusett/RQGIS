@@ -11,8 +11,23 @@ matrix:
   include:
     - os: linux
       services: docker
+      env: LTR_Linux=true
+      dist: xenial
+      latex: false
+      sudo: required
+      cache:
+        apt: true
+        pip: true
+        directories:
+          - $HOME/.ccache
+        timeout: 1000
+      compiler: clang
+      python: "3.5"
+    - os: linux
+      services: docker
       env: NIGHTLY_Linux=true
       dist: xenial
+      latex: false
       sudo: required
       cache:
         apt: true
@@ -36,14 +51,14 @@ before_install:
   - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis-ltr trusty main" >> /etc/apt/sources.list'; fi
   - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis-ltr trusty main " >> /etc/apt/sources.list'; fi
   
-  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis trusty main" >> /etc/apt/sources.list'; fi
-  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis trusty main " >> /etc/apt/sources.list'; fi
+  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis xenial main" >> /etc/apt/sources.list'; fi
+  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis xenial main " >> /etc/apt/sources.list'; fi
   
-  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis-nightly trusty main" >> /etc/apt/sources.list'; fi
-  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis-nightly trusty main " >> /etc/apt/sources.list'; fi
+  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis-nightly xenial main" >> /etc/apt/sources.list'; fi
+  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis-nightly xenial main " >> /etc/apt/sources.list'; fi
   # for newest geos version from ubuntugis ppa
-  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu trusty main " >> /etc/apt/sources.list'; fi
-  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu trusty main" >> /etc/apt/sources.list'; fi
+  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu xenial main " >> /etc/apt/sources.list'; fi
+  - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu xenial main" >> /etc/apt/sources.list'; fi
   
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then wget -O - http://qgis.org/downloads/qgis-2017.gpg.key | gpg --import; fi
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then gpg --fingerprint CAEB3DC3BDF7FB45 && gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -; fi
