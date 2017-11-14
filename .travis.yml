@@ -63,6 +63,14 @@ before_install:
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then wget -O - http://qgis.org/downloads/qgis-2017.gpg.key | gpg --import; fi
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then gpg --fingerprint CAEB3DC3BDF7FB45 && gpg --export --armor CAEB3DC3BDF7FB45 | sudo apt-key add -; fi
   
+    # remove postgresql installations causing upgrade errors otherwise
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.1; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.2; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.3; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.4; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.5; fi
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get remove -y postgresql-9.6; fi
+  
   # install gdal, saga and proj4 from ubuntugis ppa (gdal2.1)
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable; fi
 
