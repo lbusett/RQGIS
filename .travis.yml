@@ -1,6 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r		 
 cache: packages	
+group: "deprecated-2017Q4"
 
 # artifcats uploading to s3 bucket. times out sometimes for mac builds
 # addons:
@@ -86,11 +87,11 @@ matrix:
 # because GDAL2 is required 
 before_install:
   - if [ "${TRAVIS_OS_NAME}" == "linux" ]; then sudo apt-get -y --force-yes update -qq; fi
-  - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/debian-ltr trusty main" >> /etc/apt/sources.list'; fi
-  - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/debian-ltr trusty main " >> /etc/apt/sources.list'; fi
+  - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb https://qgis.org/debian-ltr trusty main" >> /etc/apt/sources.list'; fi
+  - if [[ "${OLD_LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src https://qgis.org/debian-ltr trusty main " >> /etc/apt/sources.list'; fi
   
-  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/debian trusty main" >> /etc/apt/sources.list'; fi
-  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/debian trusty main " >> /etc/apt/sources.list'; fi
+  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb https://qgis.org/debian trusty main" >> /etc/apt/sources.list'; fi
+  - if [[ "${LTR_Linux}" ]]; then sudo sh -c 'echo "deb-src https://qgis.org/debian trusty main " >> /etc/apt/sources.list'; fi
   
   - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb http://qgis.org/ubuntugis-nightly trusty main" >> /etc/apt/sources.list'; fi
   - if [[ "${NIGHTLY_Linux}" ]]; then sudo sh -c 'echo "deb-src http://qgis.org/ubuntugis-nightly trusty main " >> /etc/apt/sources.list'; fi
