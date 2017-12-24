@@ -1,7 +1,6 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: r		 
-cache: packages	
-group: "deprecated-2017Q4"
+cache: packages	  
 
 # artifcats uploading to s3 bucket. times out sometimes for mac builds
 # addons:
@@ -9,6 +8,11 @@ group: "deprecated-2017Q4"
 #    s3_region: "eu-central-1" # defaults to "us-east-1"
 
 warnings_are_errors: false
+
+addons:
+  apt: 
+    packages: 
+      - gnutls-bin
 
 r_github_packages:
   - jimhester/covr
